@@ -1346,8 +1346,8 @@
                             <ul class="social">
                                 <li><a class="facebook" href="http://facebook.com/jhotayalo"></a></li>
                                 <li><a class="twitter" href="http://twitter.com/jhotayex"></a></li>
-                                <li><a class="linkedin" href="http://linkedin.com/mdjhotay"></a></li>
-                                <li><a class="google-plus" href="http://gplus.to/jhotay"></a></li>
+                                <li><a class="linkedin" href="http://linkedin.com/in/jhotay"></a></li>
+                                <li><a class="google-plus" href="https://plus.google.com/+Jhotayexe"></a></li>
                                 <li><a class="pinterest" href="http://pinterest.com/jhotay"></a></li>
                                 <li><a class="instagram" href="http://instagram.com/jhotayex"></a></li>
                                 <li><a class="vine" href="http://vine.com/jhotayex"></a></li>
