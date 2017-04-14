@@ -99,14 +99,7 @@
                                     <a href="#/blog">
                                         <i class="pe-7s-notebook"></i>Blog</a>
                                 </li> -->
-                                <li>
-                                    <a href="#/contact">
-                                        <i class="pe-7s-call"></i>Contact</a>
-                                </li>
-
-
-                    
-                                
+                               <li> <a href="#/contact"> <em class="pe-7s-call"></em>Contact</a> </li>
                             </ul>
                         </div>
                     </nav>
@@ -1351,14 +1344,14 @@
         
                             <!-- SOCIAL -->
                             <ul class="social">
-                                <li><a class="facebook" href="http://facebook.com/jhotay07"></a></li>
+                                <li><a class="facebook" href="http://facebook.com/jhotayalo"></a></li>
                                 <li><a class="twitter" href="http://twitter.com/jhotayex"></a></li>
                                 <li><a class="linkedin" href="http://linkedin.com/mdjhotay"></a></li>
                                 <li><a class="google-plus" href="http://gplus.to/jhotay"></a></li>
                                 <li><a class="pinterest" href="http://pinterest.com/jhotay"></a></li>
                                 <li><a class="instagram" href="http://instagram.com/jhotayex"></a></li>
                                 <li><a class="vine" href="http://vine.com/jhotayex"></a></li>
-                                <li><a class="vimeo" href="http://svimeo.com/jhotayex"></a></li>
+                                <li><a class="vimeo" href="http://vimeo.com/jhotayex"></a></li>
                               </ul>
                               <!-- SOCIAL -->
         
@@ -1490,47 +1483,22 @@
                             <div class="map">
                                 <div data-latitude="23.748210" data-longitude="90.382838" data-zoom="15" data-marker-image="images/site/marker.png" id="map-canvas" class="map-canvas"> </div>
                             </div>
-                            <!-- GOOGLE MAP -->
-                        
-                            
+                           <!-- GOOGLE MAP -->
     					</div>
                         <!-- .layout-medium -->
                     </div>
                     <!-- .content -->
                 </section>
-                <!-- PAGE : CONTACT -->
-            
-            
-                
+                <!-- PAGE : CONTACT -->        
 			</div>
-            <!-- .site-main -->
-            
-            
-            
-            
+            <!-- .site-main -->         
 		</div>
         <!-- PAGE -->
-        
-        
-        
-        
-        
-        
-
-
         <!-- PORTFOLIO SINGLE AJAX CONTENT CONTAINER -->
         <div class="p-overlay"></div>
         <div class="p-overlay"></div>
-    
-    
         <!-- ALERT : used for contact form mail delivery alert -->
-        <div class="site-alert animated"></div>
-
-
-        
-        
-		
-        
+        <div class="site-alert animated"></div>  
         <!-- SCRIPTS -->
         <script src="js\jquery.address-1.5.min.js"></script>
         <script src="smoothscroll.js"></script>
