@@ -27,6 +27,11 @@
 	1. BASE (@base) - base html elements
 	
     -------------------------------------------- */
+/* ----- extra code ----- */  
+
+.colore{
+   color: #1c262b;
+}
 
 /* ----- 1.1 ELEMENTS ----- */   
 *,
