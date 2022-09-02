@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /search
+Allow: /
+Sitemap: https://jotesoft.github.io/sitemap.xml
