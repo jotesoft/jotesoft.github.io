@@ -32,6 +32,16 @@
 
 .colore{
    color: #1c262b;
+     margin: 0px auto 0px auto !important;
+     padding: .6em 73px;
+    background: #94a8ad;
+    /* text-align: center; */
+    display: table;
+}
+.nexxt{
+	
+	color: #096 !important;
+	font-size:40px;
 }
 
 /* ----- 1.1 ELEMENTS ----- */   
