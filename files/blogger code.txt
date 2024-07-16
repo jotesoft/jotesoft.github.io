@@ -1,0 +1,38 @@
+<pre>
+<h4> there is code</h4>
+
+<b:if cond="data:blog.url == data:blog.homepageUrl">
+   Content to show only on the homepage 
+</b:if>
+
+<b:if cond="data:blog.pageType == &quot;item&quot;">
+  Content to show only on blog posts
+</b:if>
+
+<b:if cond="data:blog.pageType == &quot;static_page&quot;">
+  Content to show only on static pages
+</b:if>
+
+or
+
+<b:if cond='data:blog.pageType == "static_page"'>
+  <!-- Content to show only on static pages -->
+</b:if>
+
+
+<b:if cond="data:blog.url == &quot;http://your-specific-url-here&quot;">
+  Content to show only on the specific URL
+</b:if>
+
+<b:if cond="data:blog.url == data:blog.homepageUrl + &quot;search&quot;">
+  Content to show only on the specific URL without using doamin name
+</b:if>
+
+
+<b:section id='mySection' showaddelement='yes'name='sectionName'>
+    <b:widget id='HTML1' locked='false' title='My Widget' type='HTML'>
+        <b:includable id='main'>
+              <!-- after adding this code html code can be added from layout -->
+        </b:includable>
+    </b:widget>
+</b:section>
