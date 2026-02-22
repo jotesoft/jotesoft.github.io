@@ -33,7 +33,6 @@
             border-radius: 1.5rem; 
         }
 
-        /* --- REDESIGNED DROPDOWN (BUTTON STYLE) --- */
         .select-trigger {
             width: 100%;
             background: #161e2e;
@@ -47,10 +46,8 @@
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            transition: all 0.2s ease;
         }
 
-        /* --- MODAL OVERLAY --- */
         #modal-overlay {
             position: fixed;
             inset: 0;
@@ -63,9 +60,7 @@
         }
         #selection-sheet {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             background: #0f172a;
             border-top: 1px solid rgba(16, 185, 129, 0.2);
             border-radius: 2rem 2rem 0 0;
@@ -87,25 +82,17 @@
             cursor: pointer;
         }
         .radio-circle {
-            width: 20px;
-            height: 20px;
+            width: 20px; height: 20px;
             border: 2px solid #334155;
             border-radius: 50%;
             position: relative;
         }
-        .active-item .radio-circle {
-            border-color: #10b981;
-        }
+        .active-item .radio-circle { border-color: #10b981; }
         .active-item .radio-circle::after {
-            content: '';
-            position: absolute;
-            inset: 3px;
-            background: #10b981;
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+            content: ''; position: absolute; inset: 3px;
+            background: #10b981; border-radius: 50%;
         }
 
-        /* --- TOGGLES --- */
         .toggle-pill {
             display: flex;
             align-items: center;
@@ -204,7 +191,12 @@
             <div id="prayer-list" class="divide-y divide-white/5 text-sm"></div>
         </div>
 
-        <p class="text-[9px] text-center text-slate-600 font-bold uppercase tracking-widest" id="ui-footer">Settings Saved Locally</p>
+        <div class="pt-6 pb-4 text-center space-y-3">
+            <div id="footer-clock" class="text-[10px] text-slate-500 font-bold tracking-[0.2em] uppercase"></div>
+            <a href="https://www.jote.top" target="_blank" class="inline-block text-[10px] text-emerald-500/40 hover:text-emerald-400 font-bold tracking-widest uppercase transition-colors">
+                Made by @JOTELTD
+            </a>
+        </div>
     </div>
 
     <div id="modal-overlay" onclick="toggleModal(false)"></div>
@@ -229,20 +221,19 @@
         };
 
         const LANG = {
-            en: { title: "Ramadan Daily", method: "Method", hanafi: "Hanafi", salafi: "Salafi", next: "Next", sehri: "Sehri Ends", iftar: "Iftar Time", footer: "Settings Saved to Device", prayers: ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"], tomorrow: "(Tomorrow)", modalHead: "Select Division" },
-            bn: { title: "রমজান ডেইল", method: "পদ্ধতি", hanafi: "হানাফী", salafi: "সালাফী", next: "পরবর্তী", sehri: "সেহরি শেষ", iftar: "ইফতারের সময়", footer: "সেটিংস সংরক্ষিত আছে", prayers: ["ফজর", "সূর্যোদয়", "যোহর", "আসর", "মাগরিব", "এশা"], tomorrow: "(আগামীকাল)", modalHead: "বিভাগ নির্বাচন করুন" }
+            en: { title: "Ramadan Daily", method: "Method", hanafi: "Hanafi", salafi: "Salafi", next: "Next", sehri: "Sehri Ends", iftar: "Iftar Time", prayers: ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"], tomorrow: "(Tomorrow)", modalHead: "Select Division" },
+            bn: { title: "রমজান ডেইল", method: "পদ্ধতি", hanafi: "হানাফী", salafi: "সালাফী", next: "পরবর্তী", sehri: "সেহরি শেষ", iftar: "ইফতারের সময়", prayers: ["ফজর", "সূর্যোদয়", "যোহর", "আসর", "মাগরিব", "এশা"], tomorrow: "(আগামীকাল)", modalHead: "বিভাগ নির্বাচন করুন" }
         };
 
         let currentDivision = localStorage.getItem('ramadan_div') || 'Rajshahi';
 
-        function toggleModal(show) {
-            document.body.classList.toggle('modal-active', show);
-        }
+        function toggleModal(show) { document.body.classList.toggle('modal-active', show); }
 
         function selectDivision(key) {
             currentDivision = key;
             localStorage.setItem('ramadan_div', key);
             toggleModal(false);
+            loadConfig();
             updateUI();
         }
 
@@ -250,7 +241,7 @@
             const savedSalafi = localStorage.getItem('ramadan_salafi') === 'true';
             const savedLang = localStorage.getItem('ramadan_lang') === 'bn';
             
-            document.getElementById('madhab-toggle').checked = savedLang; // Sync toggle
+            document.getElementById('madhab-toggle').checked = savedSalafi;
             document.getElementById('lang-toggle').checked = savedLang;
             
             const list = document.getElementById('division-list');
@@ -265,15 +256,10 @@
                 const div = document.createElement('div');
                 div.className = `sheet-item ${isActive ? 'active-item' : ''}`;
                 div.onclick = () => selectDivision(key);
-                div.innerHTML = `
-                    <span class="font-bold ${isActive ? 'text-emerald-400' : 'text-slate-300'}">${label}</span>
-                    <div class="radio-circle"></div>
-                `;
+                div.innerHTML = `<span class="font-bold ${isActive ? 'text-emerald-400' : 'text-slate-300'}">${label}</span><div class="radio-circle"></div>`;
                 list.appendChild(div);
 
-                if(isActive) {
-                    document.getElementById('selected-division-label').textContent = label;
-                }
+                if(isActive) document.getElementById('selected-division-label').textContent = label;
             });
         }
 
@@ -332,7 +318,6 @@
             document.getElementById('madhab-label').textContent = isS ? l.salafi : l.hanafi;
             document.getElementById('ui-sehri-label').textContent = l.sehri;
             document.getElementById('ui-iftar-label').textContent = l.iftar;
-            document.getElementById('ui-footer').textContent = l.footer;
 
             document.getElementById('date-display').textContent = now.toLocaleDateString(isBn ? 'bn-BD' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
             document.getElementById('sehri-val').textContent = formatD(times.Fajr, isBn);
@@ -357,14 +342,15 @@
             document.getElementById('next-label').textContent = `${l.next}: ${nextN}`;
             document.getElementById('next-time').textContent = formatD(nextT, isBn);
             
-            let diff = (nextT - cur) * 3600;
-            if(diff < 0) diff += 86400;
+            let diff = (nextT - cur) * 3600; if(diff < 0) diff += 86400;
             const h = Math.floor(diff/3600), m = Math.floor((diff%3600)/60), s = Math.floor(diff%60);
             let cStr = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
             document.getElementById('countdown').textContent = isBn ? toBnNum(cStr) : cStr;
 
-            const label = isBn ? `${DIVISIONS[currentDivision].bn} বিভাগ` : `${currentDivision} Division`;
-            document.getElementById('selected-division-label').textContent = label;
+            // Footer dynamic clock update
+            const footerTime = now.toLocaleTimeString(isBn ? 'bn-BD' : 'en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const footerDate = now.toLocaleDateString(isBn ? 'bn-BD' : 'en-GB', { day: 'numeric', month: 'short' });
+            document.getElementById('footer-clock').textContent = `${footerDate} | ${footerTime}`;
         }
 
         loadConfig();
