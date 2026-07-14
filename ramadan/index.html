@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ramadan Daily - Bangladesh</title>
     
+    <!-- PWA Configuration Meta Tags -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0b101b">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Ramadan Daily">
-    <link rel="apple-touch-icon" href="icon-192.png">
+    <link class="apple-touch-icon" href="icon-192.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -199,6 +200,14 @@
             <div id="prayer-list" class="divide-y divide-white/5 text-sm"></div>
         </div>
 
+        <!-- PWA Installation Button -->
+        <button id="install-pwa-btn" class="hidden w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-4 rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2 border border-emerald-500/20 active:scale-[0.98]">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            <span id="ui-install-text" class="text-xs uppercase tracking-wider">Install App</span>
+        </button>
+
         <div class="pt-6 pb-4 text-center space-y-3">
             <div id="footer-clock" class="text-[10px] text-slate-500 font-bold tracking-[0.2em] uppercase"></div>
             <a href="https://www.jote.top" target="_blank" class="inline-block text-[10px] text-emerald-500/40 hover:text-emerald-400 font-bold tracking-widest uppercase transition-colors">
@@ -229,11 +238,12 @@
         };
 
         const LANG = {
-            en: { title: "Ramadan Daily", method: "Method", hanafi: "Hanafi", salafi: "Salafi", next: "Next", sehri: "Sehri Ends", iftar: "Iftar Time", prayers: ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"], tomorrow: "(Tomorrow)", modalHead: "Select Division" },
-            bn: { title: "রমজান ডেইল", method: "পদ্ধতি", hanafi: "হানাফী", salafi: "সালাফী", next: "পরবর্তী", sehri: "সেহরি শেষ", iftar: "ইফতারের সময়", prayers: ["ফজর", "সূর্যোদয়", "যোহর", "আসর", "মাগরিব", "এশা"], tomorrow: "(আগামীকাল)", modalHead: "বিভাগ নির্বাচন করুন" }
+            en: { title: "Ramadan Daily", method: "Method", hanafi: "Hanafi", salafi: "Salafi", next: "Next", sehri: "Sehri Ends", iftar: "Iftar Time", prayers: ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"], tomorrow: "(Tomorrow)", modalHead: "Select Division", install: "Install App" },
+            bn: { title: "রমজান ডেইল", method: "পদ্ধতি", hanafi: "হানাফী", salafi: "সালাফী", next: "পরবর্তী", sehri: "সেহরি শেষ", iftar: "ইফতারের সময়", prayers: ["ফজর", "সূর্যোদয়", "যোহর", "আসর", "মাগরিব", "এশা"], tomorrow: "(আগামীকাল)", modalHead: "বিভাগ নির্বাচন করুন", install: "অ্যাপ ইনস্টল করুন" }
         };
 
         let currentDivision = localStorage.getItem('ramadan_div') || 'Rajshahi';
+        let deferredPrompt = null;
 
         function toggleModal(show) { document.body.classList.toggle('modal-active', show); }
 
@@ -326,6 +336,7 @@
             document.getElementById('madhab-label').textContent = isS ? l.salafi : l.hanafi;
             document.getElementById('ui-sehri-label').textContent = l.sehri;
             document.getElementById('ui-iftar-label').textContent = l.iftar;
+            document.getElementById('ui-install-text').textContent = l.install;
 
             document.getElementById('date-display').textContent = now.toLocaleDateString(isBn ? 'bn-BD' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
             document.getElementById('sehri-val').textContent = formatD(times.Fajr, isBn);
@@ -365,13 +376,50 @@
         setInterval(updateUI, 1000);
         updateUI();
 
-        // Register Service Worker for PWA
+        // Register Service Worker for PWA[span_4](start_span)[span_4](end_span)
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
                     .then(reg => console.log('Service Worker registered successfully.'))
                     .catch(err => console.error('Service Worker registration failed:', err));
             });
+        }
+
+        // PWA Installation Handlers
+        const installBtn = document.getElementById('install-pwa-btn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent Chrome automatic bar prompt
+            e.preventDefault();
+            // Stash the installation event prompt payload
+            deferredPrompt = e;
+            // Unhide button UI[span_5](start_span)[span_5](end_span)
+            if (installBtn) installBtn.classList.remove('hidden');
+        });
+
+        if (installBtn) {
+            installBtn.addEventListener('click', async () => {
+                if (!deferredPrompt) return;
+                // Reveal prompt workflow
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`User installation prompt resolution: ${outcome}`);
+                // Discard single-use event object
+                deferredPrompt = null;
+                // Hide button UI[span_6](start_span)[span_6](end_span)
+                installBtn.classList.add('hidden');
+            });
+        }
+
+        window.addEventListener('appinstalled', () => {
+            console.log('App successfully installed natively.');
+            if (installBtn) installBtn.classList.add('hidden');
+            deferredPrompt = null;
+        });
+
+        // Fail-safe visibility check if running under existing standalone wrapper
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            if (installBtn) installBtn.classList.add('hidden');
         }
     </script>
 </body>
