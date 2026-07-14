@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Ramadan Daily">
-    <link class="apple-touch-icon" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -200,17 +200,20 @@
             <div id="prayer-list" class="divide-y divide-white/5 text-sm"></div>
         </div>
 
-        <!-- PWA Installation Button -->
-        <button id="install-pwa-btn" class="hidden w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-4 rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2 border border-emerald-500/20 active:scale-[0.98]">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-            <span id="ui-install-text" class="text-xs uppercase tracking-wider">Install App</span>
-        </button>
+        <!-- Footer Section Containing Layout Elements -->
+        <div class="pt-4 pb-4 text-center space-y-4 flex flex-col items-center justify-center">
+            
+            <!-- PWA Installation Button (Placed directly before bottom date/time clock) -->
+            <button id="install-pwa-btn" class="hidden bg-emerald-600/20 hover:bg-emerald-600 hover:text-white text-emerald-400 font-bold py-2 px-5 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 border border-emerald-500/30 active:scale-[0.97] mb-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <span id="ui-install-text" class="text-[10px] uppercase tracking-wider">Install App</span>
+            </button>
 
-        <div class="pt-6 pb-4 text-center space-y-3">
             <div id="footer-clock" class="text-[10px] text-slate-500 font-bold tracking-[0.2em] uppercase"></div>
-            <a href="https://www.jote.top" target="_blank" class="inline-block text-[10px] text-emerald-500/40 hover:text-emerald-400 font-bold tracking-widest uppercase transition-colors">
+            
+            <a href="https://www.jote.top" target="_blank" class="inline-block text-[10px] text-emerald-500/40 hover:text-emerald-400 font-bold tracking-widest uppercase transition-colors pt-1">
                 Made by @JOTELTD
             </a>
         </div>
@@ -376,7 +379,7 @@
         setInterval(updateUI, 1000);
         updateUI();
 
-        // Register Service Worker for PWA[span_4](start_span)[span_4](end_span)
+        // Register Service Worker for PWA
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
@@ -389,11 +392,11 @@
         const installBtn = document.getElementById('install-pwa-btn');
 
         window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevent Chrome automatic bar prompt
+            // Prevent Chrome automatic banner prompt
             e.preventDefault();
             // Stash the installation event prompt payload
             deferredPrompt = e;
-            // Unhide button UI[span_5](start_span)[span_5](end_span)
+            // Unhide button UI right above the bottom date/time
             if (installBtn) installBtn.classList.remove('hidden');
         });
 
@@ -406,7 +409,7 @@
                 console.log(`User installation prompt resolution: ${outcome}`);
                 // Discard single-use event object
                 deferredPrompt = null;
-                // Hide button UI[span_6](start_span)[span_6](end_span)
+                // Hide button UI
                 installBtn.classList.add('hidden');
             });
         }
