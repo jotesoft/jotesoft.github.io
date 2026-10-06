@@ -1,28 +1,27 @@
 {
-  "name": "Ramadan Daily Bangladesh",
+  "name": "Ramadan Daily - Bangladesh",
   "short_name": "Ramadan Daily",
-  "description": "An offline-capable helper & prayer times calculator for Bangladesh divisions.",
-  "start_url": "./index.html",
+  "description": "Offline Bangladesh prayer and Ramadan daily times.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#0b101b",
-  "theme_color": "#022c22",
   "orientation": "portrait",
+  "background_color": "#0b101b",
+  "theme_color": "#0b101b",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "./assets/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-maskable.png",
+      "src": "./assets/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ]
 }
